@@ -37,9 +37,11 @@ include('dbconn.php');
         <nav class="navbar">
             <a href="#Home">Beranda</a>
             <a href="#Poli">Layanan Kami</a>
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-                <a href="rekam_medis.php">Rekam Medis</a>
-            <?php endif; ?>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
+    <a href="rekam_medis.php">
+        Rekam Medis Pasien
+    </a>
+<?php endif; ?>
             <a href="#Dokter">Temukan Dokter</a>
             <a href="#Berita">Berita</a>
         </nav>
@@ -64,13 +66,32 @@ include('dbconn.php');
           <p>
             Kesehatan adalah prioritas utama. Kami berkomitmen untuk memberikan pelayanan terbaik, karena kesehatan Anda adalah yang terpenting.
           </p>
-          <div class="Home-btn">
-            <a href="appointment.php">
-              <i class="fa-regular fa-calendar-days"></i>
-              Buat Janji Temu</a>
-            <a href="ambil_antrian.php" class="buatjanji-btn">
-              <i class="fa-solid fa-check"></i>Ambil Antrian</a>
-          </div>
+  
+  <div class="Home-btn">
+  <a href="appointment.php">
+    <i class="fa-regular fa-calendar-days"></i>
+    Buat Janji Temu
+  </a>
+
+  <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'user'): ?>
+    <!-- Jika user sudah login -->
+    <a href="rekam_medis_pasien.php" class="buatjanji-btn">
+      <i class="fa-solid fa-check"></i> Lihat Rekam Medis Anda
+    </a>
+  <?php else: ?>
+    <!-- Jika user belum login -->
+    <a href="#" class="buatjanji-btn" onclick="showLoginMessage(event)">
+      <i class="fa-solid fa-check"></i> Lihat Rekam Medis Anda
+    </a>
+  <?php endif; ?>
+</div>
+
+<!-- Pesan pop-up -->
+<div id="login-message" class="login-message">
+  <p><i class="fa-solid fa-info-circle"></i> Login untuk melihat rekam medis Anda.</p>
+  <a href="login.php" class="login-link">Login di sini</a>
+</div>
+
         </div>
         <div class="Home-img">
           <img src="Images/ParaDokter2.png" alt="" />
@@ -208,7 +229,8 @@ include('dbconn.php');
               </div>
             </div>
           </div>
-        </div>
+                    <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
       </div>
     </section>
 
@@ -419,6 +441,6 @@ include('dbconn.php');
 </footer>
     
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+<script src="script.js"></script>
   </body>
 </html>
