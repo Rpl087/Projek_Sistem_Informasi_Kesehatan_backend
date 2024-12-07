@@ -17,9 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         // User found, store session data
         $user = $result->fetch_assoc();
-        $_SESSION['id'] = $users['id'];
-        $_SESSION['email'] = $users['email'];
-        $_SESSION['role'] = $users['role'];  // Assuming 'role' column exists (admin or user)
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['role'] = $user['role'];  // Assuming 'role' column exists (admin or user)
         
         // Redirect user to homepage or another page after login
         header("Location: index.php"); // Change this to wherever you want the user to go
